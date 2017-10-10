@@ -2,9 +2,10 @@
 import paramiko
 import time
 
+
 class ScpAssistant(object):
     def __init__(self):
-        print  '''
+        print '''
         -------欢迎使用 scp assistant--------
         '''
         self.remote_ips = {"10.5.79.2"}
@@ -16,22 +17,25 @@ class ScpAssistant(object):
     def scp_put(self, ip, local_file, remote_file):
         self.sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
-            self.sshClient.connect(ip, self.service_port, self.username, self.remote_password)
-            print time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+            self.sshClient.connect(ip, self.service_port, self.username,
+                                   self.remote_password)
+            print time.strftime('%Y-%m-%d %H:%M:%S',
+                                time.localtime(time.time()))
             sftp = self.sshClient.open_sftp()
             print "scp ", local_file, " to ", ip, ":", remote_file
             sftp.put(local_file, remote_file)
         except Exception as ex:
             print ex
 
-
     def scp_get(self, ip, remote_file, local_file):
         self.sshClient.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         try:
-            self.sshClient.connect(ip, self.service_port, self.username, self.remote_password)
-            print time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
+            self.sshClient.connect(ip, self.service_port, self.username,
+                                   self.remote_password)
+            print time.strftime('%Y-%m-%d %H:%M:%S',
+                                time.localtime(time.time()))
             sftp = self.sshClient.open_sftp()
-            print "scp ", ip, ":", remote_file, " to ",  local_file
+            print "scp ", ip, ":", remote_file, " to ", local_file
             sftp.get(remote_file, local_file)
         except Exception as ex:
             print ex
@@ -54,6 +58,7 @@ def main():
         assistant.scp_put(ip, local_file2, remote_file2)
         print "-------------------------------------\n"
     exit()
+
 
 if __name__ == '__main__':
     main()
